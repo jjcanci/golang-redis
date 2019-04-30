@@ -1,7 +1,7 @@
 # golang-redis
 Ejemplo de utilizacion de redis
 
-# Install
+## Install
 
 ```
 go get github.com/gomodule/redigo/redis
