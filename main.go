@@ -74,7 +74,6 @@ func get(c redis.Conn) error {
 	return nil
 }
 
-// set executes the redis SET command
 func hset(c redis.Conn) error {
 	log.Println("HSet values")
 	key := "Ejemplo:bar"
@@ -89,6 +88,16 @@ func hset(c redis.Conn) error {
 	}
 
 	_, err = c.Do("HSET", key, "3", "Third Value")
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func setex(c redis.Conn) error {
+	log.Println("Set Expire values")
+	key := "Ejemplo:ExpKey1"
+	_, err := c.Do("SETEX", key, 20, "Expire in 20 seconds")
 	if err != nil {
 		return err
 	}
@@ -125,6 +134,12 @@ func main() {
 
 	// HSet values
 	err = hset(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// SetEx values
+	err = setex(c)
 	if err != nil {
 		log.Fatal(err)
 	}
